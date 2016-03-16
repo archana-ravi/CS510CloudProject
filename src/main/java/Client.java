@@ -14,10 +14,14 @@ public class Client {
 	static Row row;
 
 	public static void main( String[] args ) {
-		Cluster cluster = Cluster.builder()
+		/*Cluster cluster = Cluster.builder()
 				.addContactPoints("127.0.0.1")
-				.build();
+				.build();*/
 
+		Cluster cluster = Cluster.builder()
+                .addContactPoint("104.197.197.143")
+                .withCredentials("cassandra", "xxxxxxxx")
+                .build();
 		session = cluster.connect();
 		query1();
 		query2();
@@ -78,7 +82,7 @@ public class Client {
 		row = resultSet.one();
 		long countSpeed7To9AM = row.getLong("count");
 		float avgSpeed7To9AM = ((float) sumSpeed7To9AM)/countSpeed7To9AM;
-		System.out.println("\n\tSum: " + sumSpeed7To9AM + ", Count: " + countSpeed7To9AM);
+		//System.out.println("\n\tSum: " + sumSpeed7To9AM + ", Count: " + countSpeed7To9AM);
 		System.out.println("\tAvg speed (7-9am): " + avgSpeed7To9AM);
 		System.out.println("\tAvg travel time for 7-9 am is: " + (length / avgSpeed7To9AM) * 3600 + " seconds");
 
@@ -91,7 +95,7 @@ public class Client {
 		row = resultSet.one();
 		long countSpeed4To6PM = row.getLong("count");
 		float avgSpeed4To6PM = (float) sumSpeed4To6PM/countSpeed4To6PM;
-		System.out.println("\n\tSum: " + sumSpeed4To6PM + ", Count: " + countSpeed4To6PM);
+		//System.out.println("\n\tSum: " + sumSpeed4To6PM + ", Count: " + countSpeed4To6PM);
 		System.out.println("\tAvg speed (4-6pm): " +avgSpeed4To6PM);
 		System.out.println("\tAvg travel time for 4-6 pm is: " + (length / avgSpeed4To6PM) * 3600 + " seconds\n");
 	}
